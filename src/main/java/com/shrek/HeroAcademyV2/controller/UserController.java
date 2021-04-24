@@ -3,13 +3,10 @@ package com.shrek.HeroAcademyV2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shrek.HeroAcademyV2.model.User;
@@ -22,32 +19,29 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/user")
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public List<User> get() {
 		return userService.get();
 	}
 
-	@PostMapping("/user")
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public User save(@RequestBody User User) {
 		userService.save(User);
 		return User;
 	}
 
-	@GetMapping("/user/{id}")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public User get(@PathVariable int id) {
 		return userService.get(id);
 	}
 
-	@DeleteMapping("/user/{id}")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable int id) {
-
-		userService.delete(id);
-
+		userService.delete(Long.valueOf(id));
 		return "User removed with id " + id;
-
 	}
 
-	@PutMapping("/user")
+	@RequestMapping(value = "/user", method = RequestMethod.PUT)
 	public User update(@RequestBody User User) {
 		userService.save(User);
 		return User;

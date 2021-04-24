@@ -7,9 +7,11 @@ import com.shrek.HeroAcademyV2.model.User;
 public interface IUserService {
 	List<User> get();
 
-	User get(int id);
+	User get(long id);
 
-	void save(User employee);
+	void save(User user);
 
-	void delete(int id);
+	void delete(User user);
+
+	void delete(Long id);
 }

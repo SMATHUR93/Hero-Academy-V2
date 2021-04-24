@@ -4,13 +4,18 @@ import java.util.List;
 
 import com.shrek.HeroAcademyV2.model.User;
 
-public interface IUserDao {
+public interface IUserDao extends IGenericDao<User> {
 
-	List<User> get();
+	public List<User> getAllUsers();
 
-	User get(int id);
+	public User getUser(Long id);
 
-	void save(User employee);
+	public User addUser(User user);
 
-	void delete(int id);
+	public User updateUser(User user);
+
+	public void deleteUser(User user);
+
+	public void deleteUser(Long id);
+
 }

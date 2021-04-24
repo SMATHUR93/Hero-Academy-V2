@@ -6,38 +6,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shrek.HeroAcademyV2.dao.UserDao;
+import com.shrek.HeroAcademyV2.dao.IUserDao;
 import com.shrek.HeroAcademyV2.model.User;
 
 @Service
 public class UserService implements IUserService {
 
 	@Autowired
-	private UserDao userDao;
+	private IUserDao userDao;
 
 	@Transactional
 	@Override
 	public List<User> get() {
-		return userDao.get();
+		return userDao.getAllUsers();
 	}
 
 	@Transactional
 	@Override
-	public User get(int id) {
-		return userDao.get(id);
+	public User get(long id) {
+		return userDao.getUser(id);
 	}
 
 	@Transactional
 	@Override
 	public void save(User user) {
-		userDao.save(user);
+		userDao.addUser(user);
 
 	}
 
 	@Transactional
 	@Override
-	public void delete(int id) {
-		userDao.delete(id);
+	public void delete(User user) {
+		userDao.deleteUser(user);
+
+	}
+
+	@Transactional
+	@Override
+	public void delete(Long id) {
+		userDao.deleteUser(id);
 
 	}
 }
