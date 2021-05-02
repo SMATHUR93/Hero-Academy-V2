@@ -1,13 +1,14 @@
 package com.shrek.HeroAcademyV2.services;
 
+import com.shrek.HeroAcademyV2.dao.UserDaoImpl;
+import com.shrek.HeroAcademyV2.to.LoginTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.shrek.HeroAcademyV2.dao.UserDaoImpl;
-import com.shrek.HeroAcademyV2.to.LoginTO;
-
+@Service
 public class AuthenticationServiceImpl implements IAuthenticationService {
 
 	@Autowired
@@ -19,9 +20,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		parameters.put("userName", loginTO.getUserName());
 		parameters.put("password", loginTO.getPassword());
 		Boolean isLoginSuccesssful = false;
-		if (userDao.findByParameters(parameters) != null) {
+		/*if (userDao.findByParameters(parameters) != null) {
 			isLoginSuccesssful = true;
-		}
+		}*/
 		return isLoginSuccesssful;
 	}
 

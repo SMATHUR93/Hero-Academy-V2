@@ -1,15 +1,14 @@
 package com.shrek.HeroAcademyV2.services;
 
-import java.util.Iterator;
-import java.util.List;
-
+import com.shrek.HeroAcademyV2.dao.UserDaoImpl;
+import com.shrek.HeroAcademyV2.model.User;
+import com.shrek.HeroAcademyV2.to.AllInformationTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shrek.HeroAcademyV2.dao.UserDaoImpl;
-import com.shrek.HeroAcademyV2.model.User;
-import com.shrek.HeroAcademyV2.to.AllInformationTO;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class AllInformationServiceImpl implements IAllInformationService {
@@ -43,13 +42,13 @@ public class AllInformationServiceImpl implements IAllInformationService {
 	}
 
 	@Transactional
-	public User getUserInformation(long id) {
-		return userDao.getUser(id);
+	public User getUserInformation(int id) {
+		return userDao.get(id);
 	}
 
 	@Transactional
 	public List<User> getAllUsersInformation() {
-		return userDao.getAllUsers();
+		return userDao.get();
 	}
 
 	/*
@@ -63,9 +62,10 @@ public class AllInformationServiceImpl implements IAllInformationService {
 		boolean out = true;
 		while (itr.hasNext()) {
 			User user = itr.next();
-			if (userDao.addUser(user) == null) {
+			userDao.save(user);
+			/*if (userDao.save(user) == null) {
 				out = false;
-			}
+			}*/
 		}
 		return out;
 	}

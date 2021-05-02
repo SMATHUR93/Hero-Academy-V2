@@ -1,13 +1,13 @@
 package com.shrek.HeroAcademyV2.services;
 
-import java.util.List;
-
 import com.shrek.HeroAcademyV2.model.User;
+
+import java.util.List;
 
 public interface IUserService {
 	List<User> get();
 
-	User get(long id);
+	User get(int id);
 
 	void save(User user);
 

@@ -1,15 +1,11 @@
 package com.shrek.HeroAcademyV2.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @SuppressWarnings("serial")
 @Entity
@@ -19,6 +15,7 @@ public class SkillMapping extends BaseEntity implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
 	@JsonIgnoreProperties("skills")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private User user;
 	
 	@ManyToOne

@@ -21,7 +21,8 @@ public class RegistrationController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody BasicRestResponse register(@RequestBody User user) {
 		BasicRestResponse restResponse;
-		User createdUser = userDao.create(user);
+		User createdUser = user;
+		userDao.save(user);
 		if (createdUser != null) {
 			restResponse = new BasicRestResponse("Registration Successful", true);
 		} else {

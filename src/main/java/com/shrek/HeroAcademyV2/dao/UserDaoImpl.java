@@ -1,43 +1,44 @@
 package com.shrek.HeroAcademyV2.dao;
 
+import com.shrek.HeroAcademyV2.model.User;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.shrek.HeroAcademyV2.model.User;
-
 @Repository
-public class UserDaoImpl extends GenericDaoImpl<User> implements IUserDao {
+public class UserDaoImpl implements IUserDao {
+    @Autowired
+    private EntityManager entityManager;
 
-	@Transactional
-	public List<User> getAllUsers() {
-		return (List<User>) findAll();
-	}
+    @Override
+    public List<User> get() {
+        Session currSession = entityManager.unwrap(Session.class);
+        Query<User> query = currSession.createQuery("from User", User.class);
+        List<User> list = query.getResultList();
+        return list;
+    }
 
-	@Transactional
-	public User getUser(Long id) {
-		return (User) find(id);
-	}
+    @Override
+    public User get(int id) {
+        Session currSession = entityManager.unwrap(Session.class);
+        User emp = currSession.get(User.class, id);
+        return emp;
+    }
 
-	@Transactional
-	public User addUser(User user) {
-		return (User) create(user);
-	}
+    @Override
+    public void save(User User) {
+        Session currSession = entityManager.unwrap(Session.class);
+        currSession.saveOrUpdate(User);
+    }
 
-	@Transactional
-	public User updateUser(User user) {
-		return (User) update(user);
-	}
-
-	@Transactional
-	public void deleteUser(User user) {
-		delete(user.getId());
-	}
-
-	@Transactional
-	public void deleteUser(Long id) {
-		delete(id);
-	}
-
+    @Override
+    public void delete(int id) {
+        Session currSession = entityManager.unwrap(Session.class);
+        User emp = currSession.get(User.class, id);
+        currSession.delete(emp);
+    }
 }

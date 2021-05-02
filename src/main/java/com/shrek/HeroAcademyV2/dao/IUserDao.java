@@ -1,21 +1,16 @@
 package com.shrek.HeroAcademyV2.dao;
 
-import java.util.List;
-
 import com.shrek.HeroAcademyV2.model.User;
 
-public interface IUserDao extends IGenericDao<User> {
+import java.util.List;
 
-	public List<User> getAllUsers();
+public interface IUserDao {
 
-	public User getUser(Long id);
+	List<User> get();
 
-	public User addUser(User user);
+	User get(int id);
 
-	public User updateUser(User user);
+	void save(User employee);
 
-	public void deleteUser(User user);
-
-	public void deleteUser(Long id);
-
+	void delete(int id);
 }

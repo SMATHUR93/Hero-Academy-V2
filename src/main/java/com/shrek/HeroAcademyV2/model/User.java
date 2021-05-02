@@ -1,19 +1,13 @@
 package com.shrek.HeroAcademyV2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
 @Entity
@@ -96,14 +90,26 @@ public class User extends BaseEntity implements Serializable{
 	@JoinTable(name="ELEMENT_MAPPING")
 	private Element element;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+	/*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
 	@JsonIgnoreProperties("user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<SkillMapping> skills;*/
+
+	@OneToMany(mappedBy="user")
+	@JsonIgnoreProperties("user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<SkillMapping> skills;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="user")
+	/*@OneToMany(fetch = FetchType.EAGEdR, cascade = CascadeType.ALL, mappedBy="user")
 	@JsonIgnoreProperties("user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<UserAddressMapping> addresses;*/
+
+	@OneToMany(mappedBy="user")
+	@JsonIgnoreProperties("user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<UserAddressMapping> addresses;
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -373,8 +379,8 @@ public class User extends BaseEntity implements Serializable{
 		this.race = race;
 		this.symbol = symbol;
 		this.element = element;
-		this.skills = skills;
-		this.addresses = addresses;
+		/*this.skills = skills;
+		this.addresses = addresses;*/
 	}
 
 	@Override
@@ -409,8 +415,8 @@ public class User extends BaseEntity implements Serializable{
 				+ ", weight=" + weight + ", strength=" + strength + ", speed=" + speed + ", intelligence="
 				+ intelligence + ", stamina=" + stamina + ", willpower=" + willpower + ", fortitude=" + fortitude
 				+ ", durabillity=" + durabillity + ", coordination=" + coordination + ", equipment=" + equipment
-				+ ", race=" + race + ", symbol=" + symbol + ", element=" + element + ", skills=" + skills
-				+ ", addresses=" + addresses + "]";
+				+ ", race=" + race + ", symbol=" + symbol + ", element=" + element + ", skills=" + skills +  "]";
+		// ", addresses=" + addresses +
 	}
 
 }
