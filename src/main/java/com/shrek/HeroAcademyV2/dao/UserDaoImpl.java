@@ -1,14 +1,42 @@
 package com.shrek.HeroAcademyV2.dao;
 
 import com.shrek.HeroAcademyV2.model.User;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
+public class UserDaoImpl extends GenericDaoImpl<User>  implements IUserDao{
+
+    @Transactional
+    public List<User> getAllUsers() {
+        return (List<User>) findAll();
+    }
+
+    @Transactional
+    public User getUser(Long id) {
+        return (User) find(id);
+    }
+
+    @Transactional
+    public User addUser(User user) {
+        return (User) create(user);
+    }
+
+    @Transactional
+    public User updateUser(User user) {
+        return (User) update(user);
+    }
+
+    @Transactional
+    public void deleteUser(User user) {
+        delete(user.getId());
+    }
+
+}
+
+/*
 @Repository
 public class UserDaoImpl implements IUserDao {
     @Autowired
@@ -41,4 +69,4 @@ public class UserDaoImpl implements IUserDao {
         User emp = currSession.get(User.class, id);
         currSession.delete(emp);
     }
-}
+}*/

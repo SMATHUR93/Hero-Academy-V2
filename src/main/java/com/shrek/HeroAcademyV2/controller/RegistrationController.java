@@ -22,7 +22,7 @@ public class RegistrationController {
 	public @ResponseBody BasicRestResponse register(@RequestBody User user) {
 		BasicRestResponse restResponse;
 		User createdUser = user;
-		userDao.save(user);
+		userDao.addUser(user);
 		if (createdUser != null) {
 			restResponse = new BasicRestResponse("Registration Successful", true);
 		} else {

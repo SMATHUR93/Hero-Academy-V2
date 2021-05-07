@@ -1,27 +1,22 @@
 package com.shrek.HeroAcademyV2.controller;
 
+import com.shrek.HeroAcademyV2.constants.HeroAcademyConstants;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.shrek.HeroAcademyV2.constants.HeroAcademyConstants;
+import java.util.*;
 
 public class RandomUserDataJSONFileCreator {
 
 	public static void main(String[] args) {
 
 		JSONArray userArray = new JSONArray();
-		int count = 50;
-		List<String> skillsList = new ArrayList<String>();
+		int count = 2;
+		Map<String, String> skillsMap = new HashMap<String, String>();
 
 		for (int i = 0; i < count; i++) {
 			Map<String, Object> userMap = new HashMap<String, Object>();
@@ -43,26 +38,26 @@ public class RandomUserDataJSONFileCreator {
 			userMap.put("dob", dob);
 			userMap.put("primaryEmail", "shreymathur93@gmail.com");
 			userMap.put("secondaryEmail", "shreymathur93@gmail.com");
-			userMap.put("height", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("weight", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("strength", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("speed", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("intelligence", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("stamina", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("willpower", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("fortitude", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("durabillity", Integer.toString((int) Math.floor(Math.random() * 10)));
-			userMap.put("coordination", Integer.toString((int) Math.floor(Math.random() * 10)));
+			userMap.put("height", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("weight", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("strength", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("speed", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("intelligence", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("stamina", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("willpower", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("fortitude", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("durabillity", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("coordination", Integer.toString(((int) Math.floor(Math.random() * 10))+1));
 
-			userMap.put("race", Integer.toString((int) Math.floor(Math.random() * 15)));
-			userMap.put("symbol", Integer.toString((int) Math.floor(Math.random() * 158)));
-			userMap.put("element", Integer.toString((int) Math.floor(Math.random() * 9)));
+			userMap.put("race", Integer.toString(((int) Math.floor(Math.random() * 15))+1));
+			userMap.put("symbol", Integer.toString(((int) Math.floor(Math.random() * 158))+1));
+			userMap.put("element", Integer.toString( ((int) Math.floor(Math.random() * 9))+1 ));
 
-			skillsList.clear();
-			skillsList.add(Integer.toString((int) Math.floor(Math.random() * 150)));
-			skillsList.add(Integer.toString((int) Math.floor(Math.random() * 150)));
-			skillsList.add(Integer.toString((int) Math.floor(Math.random() * 150)));
-			userMap.put("skills", skillsList);
+			skillsMap.clear();
+			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			userMap.put("skills", skillsMap);
 
 			JSONObject userObj = new JSONObject(userMap);
 			userArray.add(userObj);
@@ -72,7 +67,7 @@ public class RandomUserDataJSONFileCreator {
 
 		try {
 			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-			String fileName = "D:\\userJSONFile" + ft.format(new Date()) + ".json";
+			String fileName = "C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile" + ft.format(new Date()) + ".json";
 			File file1 = new File(fileName);
 			file1.createNewFile();
 			FileWriter fileWriter = new FileWriter(file1);

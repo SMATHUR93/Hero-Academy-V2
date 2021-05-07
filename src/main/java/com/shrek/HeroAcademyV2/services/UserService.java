@@ -17,6 +17,47 @@ public class UserService implements IUserService {
 	@Transactional
 	@Override
 	public List<User> get() {
+		return userDao.getAllUsers();
+	}
+
+	@Transactional
+	@Override
+	public User get(int id) {
+		return userDao.getUser((Long.getLong(Integer.toString(id))));
+	}
+
+	@Transactional
+	@Override
+	public void save(User user) {
+		userDao.addUser(user);
+
+	}
+
+	@Transactional
+	@Override
+	public void delete(User user) {
+		userDao.delete(Integer.getInteger(Long.toString(user.getId())));
+
+	}
+
+	@Transactional
+	@Override
+	public void delete(Long id) {
+		userDao.delete(Integer.getInteger(Long.toString(id)));
+
+	}
+}
+
+/*
+@Service
+public class UserService implements IUserService {
+
+	@Autowired
+	private IUserDao userDao;
+
+	@Transactional
+	@Override
+	public List<User> get() {
 		return userDao.get();
 	}
 
@@ -46,4 +87,4 @@ public class UserService implements IUserService {
 		userDao.delete(Integer.getInteger(Long.toString(id)));
 
 	}
-}
+}*/

@@ -379,8 +379,8 @@ public class User extends BaseEntity implements Serializable{
 		this.race = race;
 		this.symbol = symbol;
 		this.element = element;
-		/*this.skills = skills;
-		this.addresses = addresses;*/
+		this.skills = skills;
+		this.addresses = addresses;
 	}
 
 	@Override

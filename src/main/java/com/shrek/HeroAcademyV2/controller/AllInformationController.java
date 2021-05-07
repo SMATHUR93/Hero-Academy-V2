@@ -1,17 +1,8 @@
 package com.shrek.HeroAcademyV2.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
+import com.shrek.HeroAcademyV2.services.AllInformationServiceImpl;
+import com.shrek.HeroAcademyV2.to.AllInformationTO;
+import com.shrek.HeroAcademyV2.to.UserTo;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.json.simple.JSONArray;
@@ -24,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shrek.HeroAcademyV2.model.User;
-import com.shrek.HeroAcademyV2.services.AllInformationServiceImpl;
-import com.shrek.HeroAcademyV2.to.AllInformationTO;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/academy")
@@ -52,15 +46,16 @@ public class AllInformationController {
 
 	@RequestMapping(value = "/seedUsers", method = RequestMethod.GET)
 	public boolean seedUsersFromJSONFile() {
-		List<User> usersList = new ArrayList<User>();
+		List<UserTo> usersToList = new ArrayList<UserTo>();
 		JSONParser jsonParser = new JSONParser();
-		try (FileReader reader = new FileReader("D:\\userJSONFile2019-07-02-05-15-23.json")) {
+		try (FileReader reader = new FileReader("C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile2021-05-08-01-24-35.json")) {
 			Object obj = jsonParser.parse(reader);
 			JSONArray jsonList = (JSONArray) obj;
 			Iterator<Object> itr = jsonList.iterator();
 			while (itr.hasNext()) {
 				JSONObject user = (JSONObject) itr.next();
 				System.out.println("===========================================");
+
 				String image = (String) user.get("image");
 				String firstName = (String) user.get("firstName");
 				String middleName = (String) user.get("middleName");
@@ -70,8 +65,10 @@ public class AllInformationController {
 				String gender = (String) user.get("gender");
 				String primaryEmail = (String) user.get("primaryEmail");
 				String secondaryEmail = (String) user.get("secondaryEmail");
+
 				Date dob = new Date(Long.parseLong((String) user.get("dob")));
 				System.out.println(dob);
+
 				Integer height = Integer.parseInt((String) user.get("height"));
 				Integer weight = Integer.parseInt((String) user.get("weight"));
 				Integer strength = Integer.parseInt((String) user.get("strength"));
@@ -82,15 +79,27 @@ public class AllInformationController {
 				Integer fortitude = Integer.parseInt((String) user.get("fortitude"));
 				Integer durabillity = Integer.parseInt((String) user.get("durabillity"));
 				Integer coordination = Integer.parseInt((String) user.get("coordination"));
+
 				Integer race = Integer.parseInt((String) user.get("race"));
 				Integer symbol = Integer.parseInt((String) user.get("symbol"));
 				Integer element = Integer.parseInt((String) user.get("element"));
-				JSONArray skillsList = (JSONArray) user.get("skills");
-				User newUser = new User(userName, image, password, firstName, middleName, lastName, dob, gender,
-						primaryEmail, secondaryEmail, height, weight, strength, speed, intelligence, stamina, willpower,
-						fortitude, durabillity, coordination);
+				JSONObject skillsObject = (JSONObject)user.get("skills");
+				Iterator<String> keys = skillsObject.keySet().iterator();
+				int[] skillsLevelArray = new int[(skillsObject.keySet().size())*2];
+				int i=0;
+				while(keys.hasNext()) {
+					String key = keys.next();
+					if (skillsObject.get(key)!=null) {
+						skillsLevelArray[i++] = Integer.valueOf(key).intValue();
+						skillsLevelArray[i++] = Integer.valueOf((String)skillsObject.get(key)).intValue();
+					}
+				}
+				UserTo newUser = new UserTo(image, firstName, middleName, lastName, userName,
+						password, gender, primaryEmail, secondaryEmail, dob,
+						height, weight, strength, speed, intelligence, stamina, willpower, fortitude, durabillity, coordination,
+						race, symbol, element, skillsLevelArray);
 				System.out.println(user.toString());
-				usersList.add(newUser);
+				usersToList.add(newUser);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -101,7 +110,8 @@ public class AllInformationController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return allInformationService.addUsers(usersList);
+		// return true;
+		return allInformationService.addUsers(usersToList);
 	}
 
 	/*
