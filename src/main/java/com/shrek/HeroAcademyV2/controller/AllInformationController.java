@@ -110,7 +110,6 @@ public class AllInformationController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// return true;
 		return allInformationService.addUsers(usersToList);
 	}
 
