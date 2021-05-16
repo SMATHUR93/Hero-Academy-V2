@@ -48,7 +48,7 @@ public class AllInformationController {
 	public boolean seedUsersFromJSONFile() {
 		List<UserTo> usersToList = new ArrayList<UserTo>();
 		JSONParser jsonParser = new JSONParser();
-		try (FileReader reader = new FileReader("C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile2021-05-08-01-24-35.json")) {
+		try (FileReader reader = new FileReader("C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile2021-05-16-02-02-16.json")) {
 			Object obj = jsonParser.parse(reader);
 			JSONArray jsonList = (JSONArray) obj;
 			Iterator<Object> itr = jsonList.iterator();

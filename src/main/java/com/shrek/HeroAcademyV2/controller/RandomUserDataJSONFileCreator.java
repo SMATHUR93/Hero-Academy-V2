@@ -15,8 +15,7 @@ public class RandomUserDataJSONFileCreator {
 	public static void main(String[] args) {
 
 		JSONArray userArray = new JSONArray();
-		int count = 2;
-		Map<String, String> skillsMap = new HashMap<String, String>();
+		int count = 25;
 
 		for (int i = 0; i < count; i++) {
 			Map<String, Object> userMap = new HashMap<String, Object>();
@@ -24,7 +23,7 @@ public class RandomUserDataJSONFileCreator {
 					(int) Math.floor(Math.random() * HeroAcademyConstants.NUMBER_OF_SAMPLE_IMAGES)) + ".jpg";
 			userMap.put("image", imageURL);
 			userMap.put("password", "12345678");
-			String gender = (int) Math.floor(Math.random() * 1) == 0 ? "F" : "M";
+			String gender = Math.random() < 0.5 ? "F" : "M";
 			userMap.put("gender", gender);
 			String fName = gender.equals("M") ? randomValues(fantasyMaleFirstNames)
 					: randomValues(fantasyFemaleFirstNames);
@@ -53,10 +52,12 @@ public class RandomUserDataJSONFileCreator {
 			userMap.put("symbol", Integer.toString(((int) Math.floor(Math.random() * 158))+1));
 			userMap.put("element", Integer.toString( ((int) Math.floor(Math.random() * 9))+1 ));
 
-			skillsMap.clear();
-			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
-			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
-			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			Map<String, String> skillsMap = new HashMap<String, String>();
+			for(int k=0;k<3;k++){
+				skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			}
+			/*skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));
+			skillsMap.put(Integer.toString(((int) Math.floor(Math.random() * 150))+1), Integer.toString(((int) Math.floor(Math.random() * 10))+1));*/
 			userMap.put("skills", skillsMap);
 
 			JSONObject userObj = new JSONObject(userMap);
