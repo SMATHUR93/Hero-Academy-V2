@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css";
+import "./SearchMenu.css";
 
 class SearchMenu extends React.Component {
 
@@ -38,6 +38,7 @@ class SearchMenu extends React.Component {
     }
 
     onElementClick(itemName){
+        debugger;
         this.props.filterTable(itemName,this.props.tableIndex);
     }
 
@@ -47,12 +48,12 @@ class SearchMenu extends React.Component {
         const component = this;
 
         return (
-            <div className="dropdown">
-                <input type="text" placeholder="Search.." id={"myInput"+prefix} onKeyUp={this.filterFunction} onFocus={this.toggleDropdown} onBlur={this.toggleDropdown}></input>
-                <div id={"myDropdown"+prefix} className="dropdown-content"> 
+            <div class="dropdown">
+                <button onClick={this.toggleDropdown} class="dropbtn">{prefix}</button>
+                <div id={"myDropdown"+prefix} class="dropdown-content">
+                    <input type="text" placeholder="Search.." id={"myInput"+prefix} onKeyUp={this.filterFunction}/>
                     {items?.map(function(item){
-                        // return <a onClick={() => this.onElementCick(item.name)}>{item.name}</a>;
-                        return <a onClick={() => component.onElementClick(item.name)}>{item.name}</a>;
+                        return (<a onClick={() => component.onElementClick(item.name)}>{item.name}</a>);
                     })}
                 </div>
             </div>

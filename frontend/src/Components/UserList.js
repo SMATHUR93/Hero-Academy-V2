@@ -1,7 +1,11 @@
 import React from "react";
 import SearchMenu from "./SearchMenu";
-import "../App.css";
+import "./UserList.css";
 // import imgTest from "../../assets/0003.jpg";
+// import addFilterIcon from "../../assets/icons/filter-icon.png";
+// import removeFilterIcon from "../../assets/icons/filter-remove-icon.png";
+import addFilterIcon from "./filter-icon.png";
+import removeFilterIcon from "./filter-remove-icon.png";
 
 class UserList extends React.Component {
 
@@ -19,6 +23,7 @@ class UserList extends React.Component {
         this.sortTableAsc = this.sortTableAsc.bind(this);
         this.sortTableDesc = this.sortTableDesc.bind(this);
         this.filterTable = this.filterTable.bind(this);
+        this.resetFilters = this.resetFilters.bind(this);
     }
 
     componentDidMount(prevProps, prevState, snapshot){
@@ -76,6 +81,15 @@ class UserList extends React.Component {
                     tr[i].style.display = "none";
                 }
             }       
+        }
+    }
+
+    resetFilters() {
+        var table, tr, i;
+        table = document.getElementById("usersListTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            tr[i].style.display = "";      
         }
     }
 
@@ -168,118 +182,131 @@ class UserList extends React.Component {
         }
 
         return (
-        <div>
-            <div className="header">
-                <h2>HERO ACADEMY</h2>
-            </div>
-
-            <div className="row viewport">
-                <div className="col-3 col-s-3 menu">
-                    <h4><span>Filters</span></h4>
-                    <ul>
-                        <li>
-                            <div>
-                                <span>AGE</span>
-                                &nbsp;&nbsp;&nbsp;
-                                <select id="filterByPriceStartInput"></select>   {/* onkeyup="filterByPrice()" */}
-                                <select id="filterByPriceEndInput"></select>  {/*  onkeyup="filterByPrice()" */}
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <span>SYMBOLS</span>
-                                &nbsp;&nbsp;&nbsp;
-                                <SearchMenu items={symbols} prefix={"symbols"} tableIndex={symbolIndex} filterTable={userList.filterTable}/>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <span>SKILLS</span>
-                                &nbsp;&nbsp;&nbsp;
-                                <SearchMenu items={skills} prefix={"skills"} tableIndex={skillIndex} filterTable={userList.filterTable}/>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <span>ELEMENT</span>
-                                <table id="elementFilters">
-                                    {elements?.map(function(element){
-                                        return <tr onClick={() => userList.filterTable(element.name, elementIndex)}>
-                                            <td><span className="dot" style={{backgroundColor:element.color}}/></td>
-                                            <td>{element.name}</td>
-                                        </tr>;
-                                    })}
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <span>RACE</span>
-                                <table id="raceFilters">
-                                    {races?.map(function(race){
-                                        const randomColor = Math.floor(Math.random()*16777215).toString(16);
-                                        return <tr onClick={() => userList.filterTable(race.name, raceIndex)}>
-                                            <td><span className="dot" style={{backgroundColor:"#"+randomColor}}/></td>
-                                            <td>{race.name}</td>
-                                        </tr>;
-                                    })}
-                                </table>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="light">
+                <div className="header">
+                    <h2>HERO ACADEMY</h2>
                 </div>
 
-                <div className="col-9 col-s-12">
-                    <div className="content">
-                        <h2 id="titleBox">USER LIST</h2>
-                        <div id="usersListing">
-                            <table id="usersListTable">
-                                <thead>
-                                    <tr>
-                                        {users? users[0] ? Object.getOwnPropertyNames(users[0]).map(function(element, index, array){
-                                            return <th style={{minWidth:"200px"}}>
-                                                <span style={{float:"left"}}>
-                                                    {element.toUpperCase()}
-                                                </span>
-                                                {element==="image"?"":<span style={{float:"right"}}>
-                                                    <div className="arrow-up" onClick={() => userList.sortTableAsc(index)}></div>
-                                                    <br/>
-                                                    <div className="arrow-down" onClick={() => userList.sortTableDesc(index)}></div>
-                                                </span>}
-                                            </th>;
-                                        }): "": ""}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {users?.map(function(user){
-                                        return <tr>{Object.getOwnPropertyNames(user).map(function(obj, index, array){
-                                            if(obj==="image") {
-                                                const img = require('../../assets/'+(user[obj].split("/assets/")[1]));
-                                                return <td><img className="profileImage" src={img.default}/></td>;
-                                            } else if(obj==="race"||obj==="element"||obj==="symbol") {
-                                                return <td>{user[obj].name}</td>;
-                                            } else if(obj==="skills") {
-                                                return <table><tbody>{user[obj].map(function(item){
-                                                    return <tr><td>{item.skill.name}</td></tr>;
-                                                })}</tbody></table>;
-                                            } else{
-                                                return <td>{user[obj]}</td>
-                                            }
-                                        })}</tr>;
-                                    })}
-                                </tbody>
-                            </table>
+                <div className="row viewport">
+                    <div className="col-3 col-s-3 menu">
+                        <h4><span>Filters</span></h4>
+                        <ul>
+                            <li>
+                                <div>
+                                    <span>SYMBOLS</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <SearchMenu items={symbols} prefix={"symbols"} tableIndex={symbolIndex} filterTable={userList.filterTable}/>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button onClick={userList.resetFilters}>Reset Filters</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>SKILLS</span>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <SearchMenu items={skills} prefix={"skills"} tableIndex={skillIndex} filterTable={userList.filterTable}/>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button onClick={userList.resetFilters}>Reset Filters</button>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>ELEMENT</span>
+                                    <table id="elementFilters">
+                                        {elements?.map(function(element){
+                                            return <tr onClick={() => userList.filterTable(element.name, elementIndex)}>
+                                                <td><span className="dot" style={{backgroundColor:element.color}}/></td>
+                                                <td>{element.name}</td>
+                                            </tr>;
+                                        })}
+                                    </table>
+                                    <span><button onClick={userList.resetFilters}>Reset Filters</button></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span>RACE</span>
+                                    <table id="raceFilters">
+                                        {races?.map(function(race){
+                                            const randomColor = Math.floor(Math.random()*16777215).toString(16);
+                                            return <tr onClick={() => userList.filterTable(race.name, raceIndex)}>
+                                                <td><span className="dot" style={{backgroundColor:"#"+randomColor}}/></td>
+                                                <td>{race.name}</td>
+                                            </tr>;
+                                        })}
+                                    </table>
+                                    <span><button onClick={userList.resetFilters}>Reset Filters</button></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="col-9 col-s-12">
+                        <div className="content">
+                            <h2 id="titleBox">USER LIST</h2>
+                            <div id="usersListing">
+                                <table id="usersListTable">
+                                    <thead>
+                                        <tr>
+                                            {users? users[0] ? Object.getOwnPropertyNames(users[0]).map(function(element, index, array){
+                                                //const addFilterIcon = require('../../assets/icons/filter-icon.png');
+                                                //const removeFilterIcon = require('../../assets/icons/filter-remove-icon.png');
+                                                return <th style={{minWidth:"200px"}}>
+                                                    <span style={{float:"left"}}>
+                                                        {element.toUpperCase()}
+                                                    </span>
+
+                                                    {element==="image"?"":<span style={{float:"right"}}>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span>
+                                                            <span>
+                                                                <img className="icon" src={addFilterIcon}/>
+                                                            </span>
+                                                            &nbsp;
+                                                            <span>
+                                                                <img className="icon" src={removeFilterIcon}  onClick={userList.resetFilters}/>
+                                                            </span>
+                                                        </span>
+                                                        &nbsp;
+                                                        <span  style={{float:"right"}}>
+                                                            <div className="arrow-up" onClick={() => userList.sortTableAsc(index)}></div>
+                                                            <br/>
+                                                            <div className="arrow-down" onClick={() => userList.sortTableDesc(index)}></div>
+                                                        </span>
+                                                    </span>}
+                                                </th>;
+                                            }): "": ""}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {users?.map(function(user){
+                                            return <tr>{Object.getOwnPropertyNames(user).map(function(obj, index, array){
+                                                if(obj==="image") {
+                                                    const img = require('../../assets/'+(user[obj].split("/assets/")[1]));
+                                                    return <td><img className="profileImage" src={img.default}/></td>;
+                                                } else if(obj==="race"||obj==="element"||obj==="symbol") {
+                                                    return <td>{user[obj].name}</td>;
+                                                } else if(obj==="skills") {
+                                                    return <table><tbody>{user[obj].map(function(item){
+                                                        return <tr><td>{item.skill.name}</td></tr>;
+                                                    })}</tbody></table>;
+                                                } else{
+                                                    return <td>{user[obj]}</td>
+                                                }
+                                            })}</tr>;
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+                <div className="footer">
+                    <span className="text-muted">&nbsp;&nbsp;Hero Academy version 2.0.0 May 2021.</span>
+                </div>
 
-            <div className="footer">
-                <span className="text-muted">&nbsp;&nbsp;Hero Academy version 2.0.0 May 2021.</span>
             </div>
-
-        </div>
         );
     }
 }

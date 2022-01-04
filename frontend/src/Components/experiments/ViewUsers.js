@@ -75,7 +75,7 @@ export default function ViewUsers() {
 
       {isLoading ? (
         <CircularProgress />
-      ) : (
+      ) : ( 
         <TableContainer
           style={{ width: "80%", margin: "0 10px" }}
           component={Paper}

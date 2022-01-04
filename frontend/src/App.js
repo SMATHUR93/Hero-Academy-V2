@@ -4,6 +4,7 @@ import AddUser from "./Components/experiments/AddUser";
 import ViewUsers from "./Components/experiments/ViewUsers";
 import SearchUsers from "./Components/experiments/SearchUsers";
 import ProductList from "./Components/experiments/ProductList";
+import TestPage from "./Components/experiments/TestPage";
 import UserList from "./Components/UserList";
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
         <Route exact path="/viewUsers" component={ViewUsers} />
         <Route exact path="/searchUsers" component={SearchUsers} />
         <Route exact path="/productList" component={ProductList} />
+        <Route exact path="/testPage" component={TestPage} />
         <Route exact path="/userList" component={UserList} />
       </Router>
     );
