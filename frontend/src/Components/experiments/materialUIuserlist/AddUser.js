@@ -161,7 +161,7 @@ export default function AddUser() {
                 onChange={handleDobChange}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -173,7 +173,7 @@ export default function AddUser() {
                 autoComplete="accountID"
                 onChange={handleAccountIDChange}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 variant="outlined"

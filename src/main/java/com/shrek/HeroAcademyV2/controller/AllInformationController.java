@@ -3,6 +3,7 @@ package com.shrek.HeroAcademyV2.controller;
 import com.shrek.HeroAcademyV2.services.AllInformationServiceImpl;
 import com.shrek.HeroAcademyV2.to.AllInformationTO;
 import com.shrek.HeroAcademyV2.to.UserTo;
+import com.shrek.HeroAcademyV2.model.*;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.json.simple.JSONArray;
@@ -12,6 +13,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/academy")
+@RequestMapping("/HeroAcademy")
 public class AllInformationController {
 
 	@Autowired
@@ -34,21 +36,22 @@ public class AllInformationController {
 		return allInformationService.getAllInformation();
 	}
 
-	/*
-	 * @RequestMapping(value = "/user", method = RequestMethod.GET) public User
-	 * getUser(@RequestParam String userId) { long id = Long.parseLong(userId);
-	 * return allInformationService.getUserInformation(id); }
-	 * 
-	 * @RequestMapping(value = "/users", method = RequestMethod.GET) public
-	 * List<User> getAllUsers() { return
-	 * allInformationService.getAllUsersInformation(); }
-	 */
+	@RequestMapping(value = "/user", method = RequestMethod.GET) 
+	public User getUser(@RequestParam String userId) { 
+		long id = Long.parseLong(userId);
+		return allInformationService.getUserInformation(id); 
+	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET) 
+	public List<User> getAllUsers() { 
+		return allInformationService.getAllUsersInformation(); 
+	}
 
 	@RequestMapping(value = "/seedUsers", method = RequestMethod.GET)
-	public boolean seedUsersFromJSONFile() {
+	public boolean seedUsersFromJSONFile(@RequestParam String fileName) {
 		List<UserTo> usersToList = new ArrayList<UserTo>();
 		JSONParser jsonParser = new JSONParser();
-		try (FileReader reader = new FileReader("C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile2021-05-16-02-02-16.json")) {
+		try (FileReader reader = new FileReader(fileName)){ // mac: "userJSONFile2024-07-26-01-29-15.json")) { // Windows : C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile2021-05-16-02-02-16.json
 			Object obj = jsonParser.parse(reader);
 			JSONArray jsonList = (JSONArray) obj;
 			Iterator<Object> itr = jsonList.iterator();
@@ -113,11 +116,10 @@ public class AllInformationController {
 		return allInformationService.addUsers(usersToList);
 	}
 
-	/*
-	 * @RequestMapping(value = "/skills", method = RequestMethod.GET) public
-	 * List<SkillMapping> getSkills() { return
-	 * allInformationService.getSkillMappingData(); }
-	 */
+	@RequestMapping(value = "/skills", method = RequestMethod.GET) 
+	public List<SkillMapping> getSkills() { 
+		return allInformationService.getSkillMappingData(); 
+	}
 
 	public String uploadFileHandler(MultipartFile file) {
 		if (!file.isEmpty()) {

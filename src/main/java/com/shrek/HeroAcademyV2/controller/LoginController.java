@@ -14,7 +14,7 @@ import com.shrek.HeroAcademyV2.web.response.BasicRestResponse;
 import com.shrek.HeroAcademyV2.web.response.LoginResponse;
 
 @RestController
-@RequestMapping("/academy")
+@RequestMapping("/HeroAcademy")
 public class LoginController {
 
 	@Autowired

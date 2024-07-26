@@ -87,9 +87,9 @@ export default function ViewUsers() {
                 <TableCell align="center">First Name</TableCell>
                 <TableCell align="center">Last Name</TableCell>
                 <TableCell align="center">Dob</TableCell>
-                <TableCell align="center">Account ID</TableCell>
+                {/* <TableCell align="center">Account ID</TableCell> */}
                 <TableCell align="center">Email ID</TableCell>
-                <TableCell align="center">Last Login</TableCell>
+                {/* <TableCell align="center">Last Login</TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -99,9 +99,9 @@ export default function ViewUsers() {
                   <TableCell align="center">{row.firstName}</TableCell>
                   <TableCell align="center">{row.lastName}</TableCell>
                   <TableCell align="center">{row.dob}</TableCell>
-                  <TableCell align="center">{row.accountID}</TableCell>
+                  {/* <TableCell align="center">{row.accountID}</TableCell> */}
                   <TableCell align="center">{row.emailID}</TableCell>
-                  <TableCell align="center">{row.lastLogin}</TableCell>
+                  {/* <TableCell align="center">{row.lastLogin}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>

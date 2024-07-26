@@ -12,7 +12,7 @@ import com.shrek.HeroAcademyV2.model.User;
 import com.shrek.HeroAcademyV2.web.response.BasicRestResponse;
 
 @RestController
-@RequestMapping("/academy")
+@RequestMapping("/HeroAcademy")
 public class RegistrationController {
 
 	@Autowired

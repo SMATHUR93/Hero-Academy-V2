@@ -24,7 +24,7 @@ select * from user;
 select * from user_address;
 
 desc user;
-desc user_address;
+desc user_address_mapping;
 desc course;
 desc course_instructor;
 desc course_user;
@@ -61,6 +61,6 @@ truncate symbol;
 truncate symbol_mapping;
 truncate team;
 truncate user;
-truncate user_address;
+truncate user_address_mapping;
 SET FOREIGN_KEY_CHECKS = 1;
 SET SQL_SAFE_UPDATES = 1;

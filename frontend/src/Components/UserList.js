@@ -184,7 +184,7 @@ class UserList extends React.Component {
         return (
             <div class="light">
                 <div className="header">
-                    <h2>HERO ACADEMY</h2>
+                    <h2>HERO LIST</h2>
                 </div>
 
                 <div className="row viewport">
@@ -243,7 +243,7 @@ class UserList extends React.Component {
 
                     <div className="col-9 col-s-12">
                         <div className="content">
-                            <h2 id="titleBox">USER LIST</h2>
+                            <h2 id="titleBox">HERO LIST</h2>
                             <div id="usersListing">
                                 <table id="usersListTable">
                                     <thead>
@@ -251,6 +251,8 @@ class UserList extends React.Component {
                                             {users? users[0] ? Object.getOwnPropertyNames(users[0]).map(function(element, index, array){
                                                 //const addFilterIcon = require('../../assets/icons/filter-icon.png');
                                                 //const removeFilterIcon = require('../../assets/icons/filter-remove-icon.png');
+                                                if(element==="image"){
+                                                } else{
                                                 return <th style={{minWidth:"200px"}}>
                                                     <span style={{float:"left"}}>
                                                         {element.toUpperCase()}
@@ -275,6 +277,7 @@ class UserList extends React.Component {
                                                         </span>
                                                     </span>}
                                                 </th>;
+                                                }
                                             }): "": ""}
                                         </tr>
                                     </thead>
@@ -282,8 +285,14 @@ class UserList extends React.Component {
                                         {users?.map(function(user){
                                             return <tr>{Object.getOwnPropertyNames(user).map(function(obj, index, array){
                                                 if(obj==="image") {
-                                                    const img = require('../../assets/'+(user[obj].split("/assets/")[1]));
-                                                    return <td><img className="profileImage" src={img.default}/></td>;
+                                                    let img;
+                                                    try {
+                                                        img = require('../assets/'+(user[obj]));
+                                                    } catch {
+                                                        img = require('../assets/0001.jpg');
+                                                    }
+                                                    // return <td><img className="profileImage" src={img.default}/></td>;
+                                                    return <td><img className="profileImage" src={img}/></td>;
                                                 } else if(obj==="race"||obj==="element"||obj==="symbol") {
                                                     return <td>{user[obj].name}</td>;
                                                 } else if(obj==="skills") {

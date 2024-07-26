@@ -19,7 +19,8 @@ public class RandomUserDataJSONFileCreator {
 
 		for (int i = 0; i < count; i++) {
 			Map<String, Object> userMap = new HashMap<String, Object>();
-			String imageURL = "http://localhost:8080/HeroAcademy/assets/" + String.format("%04d",
+			// test "http://localhost:8080/HeroAcademy/assets/" +
+			String imageURL = String.format("%04d",
 					(int) Math.floor(Math.random() * HeroAcademyConstants.NUMBER_OF_SAMPLE_IMAGES)) + ".jpg";
 			userMap.put("image", imageURL);
 			userMap.put("password", "12345678");
@@ -68,7 +69,7 @@ public class RandomUserDataJSONFileCreator {
 
 		try {
 			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
-			String fileName = "C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile" + ft.format(new Date()) + ".json";
+			String fileName = "userJSONFile" + ft.format(new Date()) + ".json"; // Windows - "C:\\WORK\\projectSourceCodes\\Hero-Academy-V2\\userJSONFile"
 			File file1 = new File(fileName);
 			file1.createNewFile();
 			FileWriter fileWriter = new FileWriter(file1);
