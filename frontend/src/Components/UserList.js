@@ -29,7 +29,7 @@ class UserList extends React.Component {
     componentDidMount(prevProps, prevState, snapshot){
         console.log("I am observing !!!!");
         this.loadDoc("/api/user", this.getUsers);
-        this.loadDoc("/academy/allInformation", this.getFilters);
+        this.loadDoc("/HeroAcademy/allInformation", this.getFilters);
     }
 
     loadDoc(url, cFunction) {
